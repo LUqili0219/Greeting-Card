@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仙侠生日邀请函</title>
+    <style>
+        /* 全局样式模块 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "KaiTi", "楷体", "STKaiti", serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 浪漫古风仙侠背景模块 */
+        .romantic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(
+                135deg,
+                #2c1810 0%,
+                #4a2c2a 25%,
+                #1a1a2e 50%,
+                #2d1b4e 75%,
+                #1a0f1a 100%
+            );
+        }
+
+        /* 背景图片容器模块 */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .background-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4) saturate(0.8) contrast(1.1);
+        }
+
+        /* 浪漫光晕效果 */
+        .glow-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: glowFloat 15s ease-in-out infinite;
+        }
+
+        .glow-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.15) 0%, transparent 70%);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .glow-2 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            top: 60%;
+            right: 15%;
+            animation-delay: 5s;
+        }
+
+        .glow-3 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(147, 112, 219, 0.1) 0%, transparent 70%);
+            bottom: 20%;
+            left: 25%;
+            animation-delay: 10s;
+        }
+
+        @keyframes glowFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(50px, -30px) scale(1.2);
+                opacity: 0.7;
+            }
+        }
+
+        /* 仙气飘动效果 */
+        .mist-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .mist {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: mistFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes mistFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(100px, -50px) scale(1.2);
+            }
+            66% {
+                transform: translate(-50px, 100px) scale(0.8);
+            }
+        }
+
+        /* 修改背景图片按钮模块 */
+        .change-bg-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.9) 0%, rgba(212, 175, 55, 0.8) 100%);
+            color: #fff;
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: "KaiTi", "楷体", "STKaiti", serif;
+            font-size: 16px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .change-bg-btn:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.95) 0%, rgba(255, 215, 0, 0.9) 100%);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* 隐藏的文件输入模块 */
+        #bg-input {
+            display: none;
+        }
+
+        /* 主卡片容器模块 */
+        .card-container {
+            width: 90%;
+            max-width: 650px;
+            max-height: 85vh;
+            position: relative;
+            animation: fadeIn 1.5s ease-out;
+            overflow: hidden;
+        }
+
+        /* 可滚动的卡片容器 */
+        .card-scrollable {
+            overflow-y: auto;
+            max-height: 85vh;
+            padding-right: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 175, 55, 0.6) rgba(255, 255, 255, 0.1);
+        }
+
+        .card-scrollable::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .card-scrollable::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .card-scrollable::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.6);
+            border-radius: 4px;
+        }
+
+        .card-scrollable::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.8);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* 仙侠边框光效 */
+        .immortal-border {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            background: 
+                linear-gradient(135deg, #d4af37, #ffd700, #d4af37, #b8860b) border-box;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) padding-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) padding-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                opacity: 0.6;
+                filter: drop-shadow(0 0 5px #d4af37);
+            }
+            50% {
+                opacity: 1;
+                filter: drop-shadow(0 0 15px #ffd700);
+            }
+        }
+
+        /* 邀请函卡片模块 - 玻璃拟态 */
+        .invitation-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 25px;
+            padding: 60px 45px;
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.4),
+                0 5px 20px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 接受页面的卡片样式 - 可滚动 */
+        .accept-page .invitation-card {
+            max-height: 85vh;
+            overflow: hidden;
+        }
+
+        .accept-page .card-content {
+            max-height: 85vh;
+            overflow-y: auto;
+            padding-right: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 175, 55, 0.6) rgba(255, 255, 255, 0.1);
+        }
+
+        .accept-page .card-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .accept-page .card-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .accept-page .card-content::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.6);
+            border-radius: 4px;
+        }
+
+        .accept-page .card-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.8);
+        }
+
+        /* 仙侠装饰图案 */
+        .immortal-pattern {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .immortal-pattern::before {
+            content: "☯";
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            color: rgba(212, 175, 55, 0.6);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        /* 装饰花纹模块 */
+        .corner-decoration {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border: 3px solid rgba(212, 175, 55, 0.6);
+            opacity: 0.8;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .corner-decoration.top-left {
+            top: 25px;
+            left: 25px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-decoration.top-right {
+            top: 25px;
+            right: 25px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-decoration.bottom-left {
+            bottom: 25px;
+            left: 25px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-decoration.bottom-right {
+            bottom: 25px;
+            right: 25px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* 标题模块 - 仙侠风格 */
+        .title {
+            font-size: 40px;
+            color: #fff;
+            margin-bottom: 35px;
+            text-shadow: 
+                0 0 10px rgba(212, 175, 55, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.5),
+                0 0 30px rgba(212, 175, 55, 0.3),
+                2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+            letter-spacing: 4px;
+        }
+
+        .title::before,
+        .title::after {
+            content: "☯";
+            color: #d4af37;
+            margin: 0 15px;
+            font-size: 28px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 1);
+            animation: rotateYinYang 10s linear infinite;
+        }
+
+        @keyframes rotateYinYang {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 诗词内容模块 - 仙侠卷轴风格 */
+        .poem {
+            font-size: 19px;
+            color: #fff;
+            line-height: 2.2;
+            margin-bottom: 35px;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .poem::before {
+            content: "「";
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 40px;
+            color: rgba(212, 175, 55, 0.6);
+            line-height: 1;
+        }
+
+        .poem::after {
+            content: "」";
+            position: absolute;
+            bottom: -25px;
+            right: 10px;
+            font-size: 40px;
+            color: rgba(212, 175, 55, 0.6);
+            line-height: 1;
+        }
+
+        /* 问题模块 - 仙侠风格 */
+        .question {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 35px;
+            font-weight: bold;
+            text-shadow: 
+                0 0 8px rgba(255, 255, 255, 0.6),
+                0 0 15px rgba(212, 175, 55, 0.4);
+            letter-spacing: 2px;
+        }
+
+        /* 按钮容器模块 */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            margin-top: 25px;
+        }
+
+        /* 按钮通用样式模块 - 仙侠风格 */
+        .btn {
+            padding: 16px 45px;
+            font-size: 19px;
+            font-family: "KaiTi", "楷体", "STKaiti", serif;
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            border-radius: 35px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: bold;
+            min-width: 130px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* 接受按钮模块 - 仙侠风格 */
+        .btn-accept {
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.9) 0%, rgba(212, 175, 55, 0.8) 100%);
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-accept:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.95) 0%, rgba(255, 215, 0, 0.9) 100%);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* 拒绝按钮模块 */
+        .btn-reject {
+            background: linear-gradient(135deg, rgba(72, 72, 72, 0.9) 0%, rgba(105, 105, 105, 0.8) 100%);
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-reject:hover {
+            background: linear-gradient(135deg, rgba(105, 105, 105, 0.95) 0%, rgba(128, 128, 128, 0.9) 100%);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* 页面切换动画模块 */
+        .page {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* 拒绝页面样式模块 - 仙侠风格 */
+        .reject-page .message {
+            font-size: 30px;
+            color: #fff;
+            margin: 35px 0;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.5),
+                0 0 20px rgba(138, 138, 138, 0.4);
+            letter-spacing: 3px;
+        }
+
+        .reject-page .sad-emoji {
+            font-size: 70px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 15px rgba(200, 200, 200, 0.5));
+            animation: sadFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes sadFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        /* 接受页面样式模块 - 仙侠风格 */
+        .accept-page .celebration {
+            font-size: 65px;
+            margin-bottom: 25px;
+            animation: celebrationBounce 2.5s ease-in-out infinite;
+        }
+
+        @keyframes celebrationBounce {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            25% {
+                transform: translateY(-15px) scale(1.1);
+            }
+            50% {
+                transform: translateY(0) scale(1);
+            }
+            75% {
+                transform: translateY(-8px) scale(1.05);
+            }
+        }
+
+        .accept-page .success-message {
+            font-size: 26px;
+            color: #fff;
+            margin-bottom: 35px;
+            text-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.6),
+                0 0 20px rgba(212, 175, 55, 0.4);
+            letter-spacing: 3px;
+        }
+
+        /* 详细信息区块 - 仙侠卷轴风格 */
+        .details-section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 25px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .details-section::before {
+            content: "✦";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
+
+        .details-section h3 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.5);
+            padding-bottom: 12px;
+            text-shadow: 
+                0 0 10px rgba(212, 175, 55, 0.6),
+                0 0 20px rgba(255, 215, 0, 0.4);
+            letter-spacing: 3px;
+        }
+
+        .detail-item {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .detail-item .label {
+            font-size: 19px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+        }
+
+        .detail-item .value {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.9);
+            padding-left: 25px;
+            line-height: 1.8;
+        }
+
+        .detail-item .value::before {
+            content: "▸";
+            color: #d4af37;
+            margin-right: 12px;
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.6);
+        }
+
+        /* 等待提示模块 - 仙侠风格 */
+        .pending-notice {
+            font-size: 16px;
+            color: rgba(212, 175, 55, 0.95);
+            font-style: italic;
+            margin-top: 12px;
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+        }
+
+        /* 樱花飘落动画容器模块 */
+        .sakura-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .sakura {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(ellipse at center, #ffb7c5 0%, #ff69b4 100%);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        .sakura::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 182, 193, 0.5);
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* 仙气粒子效果 */
+        .immortal-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(212, 175, 55, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 8s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-30px) scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        /* 装饰元素模块 */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .float {
+            position: absolute;
+            animation: float 7s ease-in-out infinite;
+            opacity: 0.4;
+            font-size: 35px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-25px) rotate(180deg);
+            }
+        }
+
+        /* 星星闪烁效果 */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+            box-shadow: 0 0 6px #fff, 0 0 12px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        /* 响应式设计模块 */
+        @media (max-width: 600px) {
+            .card-container {
+                max-height: 90vh;
+            }
+
+            .invitation-card {
+                padding: 40px 25px;
+            }
+
+            .accept-page .invitation-card {
+                max-height: 90vh;
+            }
+
+            .accept-page .card-content {
+                max-height: 90vh;
+            }
+
+            .title {
+                font-size: 32px;
+                letter-spacing: 2px;
+            }
+
+            .poem {
+                font-size: 17px;
+                padding: 20px 25px;
+            }
+
+            .question {
+                font-size: 20px;
+            }
+
+            .btn {
+                padding: 14px 35px;
+                font-size: 17px;
+                min-width: 110px;
+            }
+
+            .button-container {
+                gap: 20px;
+            }
+
+            .details-section {
+                padding: 20px;
+            }
+
+            .details-section h3 {
+                font-size: 20px;
+            }
+
+            .detail-item .label {
+                font-size: 17px;
+            }
+
+            .detail-item .value {
+                font-size: 15px;
+            }
+
+            .corner-decoration {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 浪漫古风仙侠背景 -->
+    <div class="romantic-bg"></div>
+
+    <!-- 浪漫光晕效果 -->
+    <div class="glow-effect">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
+
+    <!-- 星星闪烁效果 -->
+    <div class="stars-container" id="stars-container"></div>
+
+    <!-- 仙气飘动效果 -->
+    <div class="mist-container">
+        <div class="mist" style="top: 10%; left: 20%;"></div>
+        <div class="mist" style="top: 60%; right: 15%; animation-delay: 7s;"></div>
+        <div class="mist" style="bottom: 20%; left: 30%; animation-delay: 14s;"></div>
+    </div>
+
+    <!-- 樱花飘落容器 -->
+    <div class="sakura-container" id="sakura-container"></div>
+
+    <!-- 背景图片容器 -->
+    <div class="background-container">
+        <img id="background-image" src="" alt="背景图片">
+    </div>
+
+    <!-- 修改背景图片按钮 -->
+    <button class="change-bg-btn" onclick="document.getElementById('bg-input').click()">
+        ☯ 更换背景
+    </button>
+    <input type="file" id="bg-input" accept="image/*" onchange="changeBackground(this)">
+
+    <!-- 主卡片容器 -->
+    <div class="card-container">
+        <!-- 仙侠边框光效 -->
+        <div class="immortal-border"></div>
+
+        <!-- 邀请页面 -->
+        <div id="invitation-page" class="page active">
+            <div class="invitation-card">
+                <!-- 仙侠装饰图案 -->
+                <div class="immortal-pattern"></div>
+
+                <!-- 装饰花纹 -->
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration top-right"></div>
+                <div class="corner-decoration bottom-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+
+                <!-- 标题 -->
+                <h1 class="title">仙侠生辰邀约</h1>
+
+                <!-- 诗词内容 -->
+                <div class="poem">
+                    云深不知处，仙缘聚此时<br>
+                    瑶台银烛照，玉露金风迟<br>
+                    今逢生辰日，共饮长生酒<br>
+                    愿君如松柏，岁岁常青丝
+                </div>
+
+                <!-- 询问问题 -->
+                <div class="question">
+                    敢问仙友，可愿赴此生辰之约？
+                </div>
+
+                <!-- 选择按钮 -->
+                <div class="button-container">
+                    <button class="btn btn-accept" onclick="showAcceptPage()">是</button>
+                    <button class="btn btn-reject" onclick="showRejectPage()">否</button>
+                </div>
+
+                <!-- 仙气粒子效果 -->
+                <div class="floating-elements">
+                    <div class="immortal-particle" style="top: 15%; left: 20%; animation-delay: 0s;"></div>
+                    <div class="immortal-particle" style="top: 25%; right: 25%; animation-delay: 2s;"></div>
+                    <div class="immortal-particle" style="bottom: 35%; left: 30%; animation-delay: 4s;"></div>
+                    <div class="immortal-particle" style="bottom: 25%; right: 20%; animation-delay: 6s;"></div>
+                </div>
+
+                <!-- 漂浮装饰元素 -->
+                <div class="floating-elements">
+                    <div class="float" style="top: 12%; left: 12%;">✨</div>
+                    <div class="float" style="top: 22%; right: 18%; animation-delay: 1s;">🌸</div>
+                    <div class="float" style="bottom: 32%; left: 22%; animation-delay: 2s;">🎋</div>
+                    <div class="float" style="bottom: 22%; right: 12%; animation-delay: 3s;">☁️</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 拒绝页面 -->
+        <div id="reject-page" class="page reject-page">
+            <div class="invitation-card">
+                <div class="immortal-pattern"></div>
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration top-right"></div>
+                <div class="corner-decoration bottom-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+
+                <div class="sad-emoji">🌧️</div>
+                <h1 class="title">遗憾告别</h1>
+                <div class="message">
+                    遗仙友未能赴约<br>
+                    待来日方长，再续仙缘
+                </div>
+                <div class="poem">
+                    仙山云雾散，孤月照寒窗<br>
+                    此时不相见，何日共举觞
+                </div>
+                <button class="btn btn-accept" onclick="showInvitationPage()">
+                    返回邀请
+                </button>
+            </div>
+        </div>
+
+        <!-- 接受页面 -->
+        <div id="accept-page" class="page accept-page">
+            <div class="invitation-card">
+                <div class="immortal-pattern"></div>
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration top-right"></div>
+                <div class="corner-decoration bottom-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+
+                <div class="card-content">
+                    <div class="celebration">🎉✨🎊</div>
+                    <h1 class="title">仙友应邀</h1>
+                    <div class="success-message">
+                        甚喜仙友赏光赴约！
+                    </div>
+                    <div class="poem">
+                        仙友应邀至，蓬荜以此光<br>
+                        共此生辰日，醉卧白云乡
+                    </div>
+
+                    <!-- 详细信息 -->
+                    <div class="details-section">
+                        <h3>✦ 生辰盛典详情 ✦</h3>
+
+                        <div class="detail-item">
+                            <div class="label">🏛️ 举办地点</div>
+                            <div class="value">
+                                仙界·瑶台秘境
+                                <div class="pending-notice">（暂定，待后续通知具体方位）</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="label">🕐 盛典时间</div>
+                            <div class="value">
+                                吉日良辰·子时三刻
+                                <div class="pending-notice">（暂定，待择日确认）</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="label">🎁 友情提示</div>
+                            <div class="value">仙友可随意着装，但请勿携带凡间俗物</div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="label">📜 联络方式</div>
+                            <div class="value">传音符·千里传音（届时会发送邀请符）</div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="label">🌟 特别提醒</div>
+                            <div class="value">请随身携带玉佩一枚，作为入场凭证</div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="label">🎭 活动安排</div>
+                            <div class="value">
+                                1. 初见礼：仙友签到，领取玉佩<br>
+                                2. 开宴：瑶台盛宴，品仙界佳肴<br>
+                                3. 表演：仙乐奏响，仙舞翩翩<br>
+                                4. 祝酒：共饮长生酒，共话仙缘<br>
+                                5. 游戏：仙界小游戏，赢取仙礼<br>
+                                6. 礼成：分发纪念品，相约来年
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="label">🎁 礼品说明</div>
+                            <div class="value">
+                                每位仙友将获得：精美玉佩一枚、仙界特产礼包、定制仙侠纪念册
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="label">📞 咨询联系</div>
+                            <div class="value">
+                                若有疑问，可通过传音符联系：仙界瑶台·接待处
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="label">⚠️ 注意事项</div>
+                            <div class="value">
+                                1. 请准时到达，以免错过精彩环节<br>
+                                2. 玉佩为重要凭证，请妥善保管<br>
+                                3. 仙界规矩请遵守，共创和谐氛围<br>
+                                4. 如有特殊需求，请提前告知
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 25px;">
+                        <button class="btn btn-accept" onclick="showInvitationPage()">
+                            返回首页
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 仙气粒子效果 -->
+                <div class="floating-elements">
+                    <div class="immortal-particle" style="top: 15%; left: 20%; animation-delay: 0s;"></div>
+                    <div class="immortal-particle" style="top: 25%; right: 25%; animation-delay: 2s;"></div>
+                    <div class="immortal-particle" style="bottom: 35%; left: 30%; animation-delay: 4s;"></div>
+                    <div class="immortal-particle" style="bottom: 25%; right: 20%; animation-delay: 6s;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 樱花飘落效果模块
+        function createSakura() {
+            const container = document.getElementById('sakura-container');
+            const sakura = document.createElement('div');
+            sakura.className = 'sakura';
+
+            // 随机位置和大小
+            const startX = Math.random() * window.innerWidth;
+            const size = 10 + Math.random() * 15;
+            const duration = 8 + Math.random() * 7;
+            const delay = Math.random() * 5;
+
+            sakura.style.left = startX + 'px';
+            sakura.style.width = size + 'px';
+            sakura.style.height = size + 'px';
+            sakura.style.animationDuration = duration + 's';
+            sakura.style.animationDelay = delay + 's';
+
+            // 随机樱花颜色
+            const colors = [
+                'radial-gradient(ellipse at center, #ffb7c5 0%, #ff69b4 100%)',
+                'radial-gradient(ellipse at center, #ffc0cb 0%, #ff1493 100%)',
+                'radial-gradient(ellipse at center, #ffe4e1 0%, #db7093 100%)',
+                'radial-gradient(ellipse at center, #fff0f5 0%, #ff69b4 100%)'
+            ];
+            sakura.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            container.appendChild(sakura);
+
+            // 动画结束后移除元素
+            setTimeout(() => {
+                sakura.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        // 持续创建樱花
+        function startSakuraRain() {
+            setInterval(createSakura, 300);
+        }
+
+        // 页面切换模块
+        function showInvitationPage() {
+            hideAllPages();
+            document.getElementById('invitation-page').classList.add('active');
+        }
+
+        function showRejectPage() {
+            hideAllPages();
+            document.getElementById('reject-page').classList.add('active');
+        }
+
+        function showAcceptPage() {
+            hideAllPages();
+            document.getElementById('accept-page').classList.add('active');
+        }
+
+        function hideAllPages() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+        }
+
+        // 背景图片更换模块
+        function changeBackground(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('background-image').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // 星星闪烁效果模块
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 100;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const size = 1 + Math.random() * 3;
+                const delay = Math.random() * 3;
+                const duration = 2 + Math.random() * 3;
+
+                star.style.left = x + '%';
+                star.style.top = y + '%';
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDelay = delay + 's';
+                star.style.animationDuration = duration + 's';
+
+                container.appendChild(star);
+            }
+        }
+
+        // 页面初始化模块
+        window.onload = function() {
+            // 启动樱花飘落效果
+            startSakuraRain();
+
+            // 创建星星闪烁效果
+            createStars();
+        };
+    </script>
+</body>
+</html>
