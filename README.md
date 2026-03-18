@@ -1,8 +1,28 @@
-# 🌊 风之海·生日活动邀请
+# 🎴 Greeting Card - 多主题生日邀请卡片
+
+一个支持多主题的生日活动邀请网页项目，包含不同风格的邀请卡片设计。
+
+## 📚 版本介绍
+
+### 🌊 风之海版本
+> **当前分支**: [`wind-sea`](https://github.com/LUqili0219/Greeting-Card/tree/wind-sea)
 
 一个精美的海洋主题生日活动邀请网页，采用玻璃拟态设计风格，配合粒子动画、波浪效果和音乐播放器，为参与者带来沉浸式的视觉体验。
 
-## ✨ 特性
+**切换到此版本**:
+```bash
+git checkout wind-sea
+```
+
+### 🏮 古风版本
+> **当前分支**: [`main`](https://github.com/LUqili0219/Greeting-Card/tree/main)
+
+中国古典风格的生日邀请卡片，采用传统元素和配色。
+
+**切换到此版本**:
+```bash
+git checkout main
+```
 
 - **精美视觉设计**
   - 玻璃拟态（Glassmorphism）卡片设计
@@ -25,13 +45,26 @@
 
 ## 🚀 快速开始
 
+### 克隆仓库
+
+```bash
+git clone https://github.com/LUqili0219/Greeting-Card.git
+cd Greeting-Card
+```
+
+### 切换版本
+
+```bash
+# 风之海版本
+git checkout wind-sea
+
+# 古风版本
+git checkout main
+```
+
 ### 本地运行
 
 ```bash
-# 克隆仓库
-git clone <your-repo-url>
-cd wind-sea-invitation
-
 # 使用 Python 启动本地服务器
 python -m http.server 8000
 
@@ -40,6 +73,10 @@ npx http-server -p 8000
 ```
 
 然后在浏览器中访问 `http://localhost:8000`
+
+---
+
+## 📌 风之海版本特性
 
 ## ⚙️ 配置
 
@@ -173,6 +210,21 @@ MIT License
 ## 🤝 贡献
 
 欢迎提交 Issue 和 Pull Request！
+
+**版本切换**:
+- 如果您想创建新的主题版本，请基于现有分支创建新分支
+- 建议的命名格式：`<theme-name>-<version>`
+
+**代码规范**:
+- 保持代码风格一致
+- 添加适当的注释
+- 更新 README 文档
+
+---
+
+## 📄 许可证
+
+MIT License
 
 ---
 
