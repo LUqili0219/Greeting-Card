@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风之海·生日活动邀请</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <div class="particles-container">
+        <canvas id="particlesCanvas"></canvas>
+    </div>
+    
+    <!-- 光晕背景 -->
+    <div class="aurora-bg">
+        <div class="aurora-layer layer-1"></div>
+        <div class="aurora-layer layer-2"></div>
+        <div class="aurora-layer layer-3"></div>
+    </div>
+    
+    <!-- 流光效果 -->
+    <div class="light-beams">
+        <div class="beam beam-1"></div>
+        <div class="beam beam-2"></div>
+        <div class="beam beam-3"></div>
+    </div>
+    
+    <!-- 海洋层 -->
+    <div class="ocean">
+        <div class="wave-container">
+            <canvas id="waveCanvas"></canvas>
+        </div>
+        <div class="wave-decor wave-1"></div>
+        <div class="wave-decor wave-2"></div>
+        <div class="wave-decor wave-3"></div>
+        <div class="foam-particles"></div>
+    </div>
+    
+    <!-- 漂浮元素 -->
+    <div class="floating-elements">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+        <div class="bubble bubble-5"></div>
+        <div class="bubble bubble-6"></div>
+        <div class="bubble bubble-7"></div>
+        <div class="bubble bubble-8"></div>
+    </div>
+    
+    <!-- 主容器 -->
+    <div class="container" id="mainContainer">
+        <div id="welcome-screen" class="screen active">
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="sparkle"></div>
+                    <div class="sparkle sparkle-2"></div>
+                    <div class="sparkle sparkle-3"></div>
+                </div>
+                <div class="content">
+                    <h1 class="title-3d">风之海</h1>
+                    <p class="subtitle floating-text" style="animation-delay: 0.3s;">
+                        在风之海的夏日，我为你点亮一片蔚蓝，愿与你共度生日时光。
+                    </p>
+                    <p class="lyrics gradient-text" style="animation-delay: 0.5s;">
+                        "在风之海的尽头，有我为你点亮的光。愿你如风，自由而温柔。"
+                    </p>
+                    <div class="button-group">
+                        <button class="btn btn-glass btn-primary ripple" onclick="showInputScreen()">
+                            <span class="ripple-effect"></span>
+                            <span class="btn-text">接受邀请</span>
+                            <span class="btn-shine"></span>
+                        </button>
+                        <button class="btn btn-glass btn-secondary ripple" onclick="showDeclineScreen()">
+                            <span class="ripple-effect"></span>
+                            <span class="btn-text">婉拒邀请</span>
+                            <span class="btn-shine"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+
+        <div id="input-screen" class="screen">
+            <div class="glass-card">
+                <div class="content">
+                    <h2 class="title-3d">留下你的名字</h2>
+                    <p class="subtitle floating-text" style="animation-delay: 0.2s;">
+                        请留下你的名字（支持中文，2-15字符），让风之海记住你。
+                    </p>
+                    <div class="input-group">
+                        <input type="text" id="nickname" placeholder="示例：小海、星辰大海" 
+                               maxlength="15" autocomplete="off">
+                        <span id="char-count" class="char-count">0/15</span>
+                    </div>
+                    <div id="error-message" class="error-message"></div>
+                    <div class="button-group">
+                        <button class="btn btn-glass btn-primary ripple" onclick="submitNickname()">
+                            <span class="ripple-effect"></span>
+                            <span class="btn-text">确认</span>
+                            <span class="btn-shine"></span>
+                        </button>
+                        <button class="btn btn-glass btn-back ripple" onclick="showWelcomeScreen()">
+                            <span class="ripple-effect"></span>
+                            <span class="btn-text">返回</span>
+                            <span class="btn-shine"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+
+        <div id="detail-screen" class="screen">
+            <div class="glass-card">
+                <div class="content">
+                    <h2 class="title-3d">欢迎你，<span id="display-nickname"></span></h2>
+                    <div class="event-details floating-text">
+                        <div class="detail-item glass-item">
+                            <span class="icon">📍</span>
+                            <span class="label">地点：</span>
+                            <span>海滨广场·日落舞台</span>
+                        </div>
+                        <div class="detail-item glass-item">
+                            <span class="icon">🕐</span>
+                            <span class="label">时间：</span>
+                            <span>2026年7月18日 18:00-22:00</span>
+                        </div>
+                        <div class="detail-item glass-item">
+                            <span class="icon">💫</span>
+                            <span class="label">提示：</span>
+                            <span>请携带轻便衣物，与一颗温暖的心</span>
+                        </div>
+                    </div>
+                    <p class="lyrics gradient-text" style="animation-delay: 0.3s;">
+                        "风之海会永远记得这个约定，我们不见不散。"
+                    </p>
+                    <div class="button-group">
+                        <button class="btn btn-glass btn-primary ripple" onclick="showWelcomeScreen()">
+                            <span class="ripple-effect"></span>
+                            <span class="btn-text">返回首页</span>
+                            <span class="btn-shine"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+
+        <div id="decline-screen" class="screen">
+            <div class="glass-card">
+                <div class="content">
+                    <h2 class="title-3d">遗憾告别</h2>
+                    <p class="lyrics gradient-text">
+                        "风之海会一直等待，下次再见，愿你依旧如风般自由。"
+                    </p>
+                    <div class="feedback-section">
+                        <p class="subtitle">留言（可选）：</p>
+                        <textarea id="feedback-text" placeholder="如果愿意，可以告诉我原因..." 
+                                  rows="4" maxlength="200"></textarea>
+                        <span id="feedback-count" class="char-count">0/200</span>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-glass btn-primary ripple" onclick="submitDecline()">
+                            <span class="ripple-effect"></span>
+                            <span class="btn-text">提交</span>
+                            <span class="btn-shine"></span>
+                        </button>
+                        <button class="btn btn-glass btn-back ripple" onclick="showWelcomeScreen()">
+                            <span class="ripple-effect"></span>
+                            <span class="btn-text">返回</span>
+                            <span class="btn-shine"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+
+        <div id="music-player" class="music-player">
+            <button id="music-toggle" class="music-toggle" onclick="toggleMusic()">
+                <span id="music-icon">🎵</span>
+            </button>
+            <div class="music-controls" id="music-controls">
+                <div class="volume-control">
+                    <span>🔊</span>
+                    <input type="range" id="volume-slider" min="0" max="100" value="50" 
+                           onchange="changeVolume(this.value)">
+                </div>
+                <div class="upload-section">
+                    <input type="file" id="music-upload" accept="audio/*" 
+                           style="display: none;" onchange="uploadMusic(event)">
+                    <button class="upload-btn" onclick="document.getElementById('music-upload').click()">
+                        📤 上传音乐
+                    </button>
+                </div>
+                <div id="music-status" class="music-status"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content glass-card">
+            <h3>确认参加</h3>
+            <p>确认以 '<span id="modal-nickname"></span>' 参加活动吗？</p>
+            <div class="modal-buttons">
+                <button class="btn btn-glass btn-primary ripple" onclick="confirmAccept()">
+                    <span class="ripple-effect"></span>
+                    <span class="btn-text">确认</span>
+                    <span class="btn-shine"></span>
+                </button>
+                <button class="btn btn-glass btn-back ripple" onclick="closeModal()">
+                    <span class="ripple-effect"></span>
+                    <span class="btn-text">取消</span>
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+            <div class="card-glow"></div>
+        </div>
+    </div>
+
+    <!-- 数据管理面板 -->
+    <!--<div id="data-panel" class="data-panel">
+        <div class="data-toggle" onclick="toggleDataPanel()">
+            <span>📊</span>
+        </div>
+        <div class="data-content glass-card">
+            <h3>参与者数据管理</h3>-->
+            
+            <!-- 安全提示 -->
+            <!--<div class="security-notice">
+                <span class="security-icon">🔒</span>
+                <div class="security-text">
+                    <strong>数据仅存储在本地</strong>
+                    <span>所有参与者数据仅保存在您的浏览器中，不会上传到任何服务器，完全私密安全。</span>
+                </div>
+            </div>
+            
+            <div class="data-stats">
+                <div class="stat-item">
+                    <span class="stat-label">总计</span>
+                    <span class="stat-value" id="stat-total">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">接受</span>
+                    <span class="stat-value accepted" id="stat-accepted">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">婉拒</span>
+                    <span class="stat-value declined" id="stat-declined">0</span>
+                </div>
+            </div>
+            <div class="data-list" id="participants-list">
+                <p class="empty-text">暂无数据</p>
+            </div>
+            <div class="data-actions">
+                <button class="action-btn" onclick="refreshData()">
+                    <span>🔄</span> 刷新
+                </button>
+                <button class="action-btn" onclick="exportData()">
+                    <span>📥</span> 导出
+                </button>
+                <button class="action-btn danger" onclick="clearAllData()">
+                    <span>🗑️</span> 清空
+                </button>
+            </div>
+            <div class="card-glow"></div>
+        </div>
+    </div>-->
+
+    <script src="js/main.js"></script>
+</body>
+</html>

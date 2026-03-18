@@ -1,0 +1,1398 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        #1a0a14 0%, 
+        #2d0f1f 25%, 
+        #0f1a2a 50%, 
+        #0f2028 75%, 
+        #0a1520 100%);
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ===== 粒子背景 ===== */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+#particlesCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== 极光背景 ===== */
+.aurora-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.aurora-layer {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    filter: blur(100px);
+    opacity: 0.4;
+}
+
+.layer-1 {
+    background: radial-gradient(ellipse at 30% 30%, 
+        rgba(233, 79, 140, 0.5) 0%, 
+        rgba(233, 79, 140, 0.2) 40%, 
+        transparent 70%);
+    animation: auroraMove1 20s ease-in-out infinite;
+}
+
+.layer-2 {
+    background: radial-gradient(ellipse at 70% 40%, 
+        rgba(64, 221, 255, 0.4) 0%, 
+        rgba(64, 221, 255, 0.15) 50%, 
+        transparent 80%);
+    animation: auroraMove2 25s ease-in-out infinite;
+    animation-delay: -5s;
+}
+
+.layer-3 {
+    background: radial-gradient(ellipse at 50% 60%, 
+        rgba(233, 79, 140, 0.3) 0%, 
+        rgba(64, 221, 255, 0.2) 50%, 
+        transparent 90%);
+    animation: auroraMove3 30s ease-in-out infinite;
+    animation-delay: -10s;
+}
+
+@keyframes auroraMove1 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+        transform: translate(-20%, -10%) rotate(5deg);
+    }
+    66% {
+        transform: translate(10%, -20%) rotate(-5deg);
+    }
+}
+
+@keyframes auroraMove2 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(-30%, 20%) scale(1.2);
+    }
+}
+
+@keyframes auroraMove3 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(15%, -15%) rotate(3deg);
+    }
+    50% {
+        transform: translate(-10%, -25%) rotate(-3deg);
+    }
+    75% {
+        transform: translate(-25%, 10%) rotate(2deg);
+    }
+}
+
+/* ===== 流光效果 ===== */
+.light-beams {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.beam {
+    position: absolute;
+    width: 300%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        transparent 100%);
+    transform-origin: left center;
+}
+
+.beam-1 {
+    top: 20%;
+    animation: beamMove1 15s linear infinite;
+}
+
+.beam-2 {
+    top: 50%;
+    animation: beamMove2 20s linear infinite;
+    animation-delay: -5s;
+}
+
+.beam-3 {
+    top: 80%;
+    animation: beamMove3 18s linear infinite;
+    animation-delay: -10s;
+}
+
+@keyframes beamMove1 {
+    0% {
+        transform: translateX(-100%) rotate(25deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) rotate(25deg);
+        opacity: 0;
+    }
+}
+
+@keyframes beamMove2 {
+    0% {
+        transform: translateX(-100%) rotate(-20deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) rotate(-20deg);
+        opacity: 0;
+    }
+}
+
+@keyframes beamMove3 {
+    0% {
+        transform: translateX(-100%) rotate(15deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+/* ===== 海洋层 ===== */
+.ocean {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#waveCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+.wave-decor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 200px;
+    background: linear-gradient(180deg, 
+        rgba(0, 150, 200, 0.1) 0%, 
+        rgba(0, 100, 150, 0.05) 50%,
+        transparent 100%);
+    filter: blur(2px);
+}
+
+.wave-1 {
+    animation: waveFloat 8s ease-in-out infinite;
+}
+
+.wave-2 {
+    animation: waveFloat 10s ease-in-out infinite;
+    animation-delay: -2s;
+    opacity: 0.7;
+}
+
+.wave-3 {
+    animation: waveFloat 12s ease-in-out infinite;
+    animation-delay: -4s;
+    opacity: 0.5;
+}
+
+@keyframes waveFloat {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+    }
+    50% {
+        transform: translateX(-50px) translateY(-20px);
+    }
+}
+
+/* ===== 漂浮元素 ===== */
+.floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, 
+        rgba(255, 255, 255, 0.8), 
+        rgba(200, 230, 255, 0.4));
+    box-shadow: 
+        inset 0 0 20px rgba(255, 255, 255, 0.5),
+        0 0 20px rgba(200, 230, 255, 0.3);
+    animation: bubbleFloat 10s ease-in-out infinite;
+}
+
+.bubble::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 30%;
+    height: 30%;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+}
+
+.bubble-1 {
+    width: 60px;
+    height: 60px;
+    left: 10%;
+    bottom: 20%;
+    animation-duration: 12s;
+}
+
+.bubble-2 {
+    width: 40px;
+    height: 40px;
+    left: 25%;
+    bottom: 15%;
+    animation-duration: 15s;
+    animation-delay: -2s;
+}
+
+.bubble-3 {
+    width: 80px;
+    height: 80px;
+    left: 60%;
+    bottom: 25%;
+    animation-duration: 18s;
+    animation-delay: -4s;
+}
+
+.bubble-4 {
+    width: 50px;
+    height: 50px;
+    left: 75%;
+    bottom: 18%;
+    animation-duration: 14s;
+    animation-delay: -6s;
+}
+
+.bubble-5 {
+    width: 30px;
+    height: 30px;
+    left: 45%;
+    bottom: 22%;
+    animation-duration: 16s;
+    animation-delay: -8s;
+}
+
+.bubble-6 {
+    width: 70px;
+    height: 70px;
+    left: 15%;
+    bottom: 28%;
+    animation-duration: 20s;
+    animation-delay: -10s;
+}
+
+.bubble-7 {
+    width: 45px;
+    height: 45px;
+    left: 85%;
+    bottom: 20%;
+    animation-duration: 13s;
+    animation-delay: -12s;
+}
+
+.bubble-8 {
+    width: 35px;
+    height: 35px;
+    left: 55%;
+    bottom: 24%;
+    animation-duration: 17s;
+    animation-delay: -14s;
+}
+
+@keyframes bubbleFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translateY(-100px) translateX(20px) scale(1.1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-200px) translateX(-10px) scale(1);
+        opacity: 0.9;
+    }
+    75% {
+        transform: translateY(-300px) translateX(30px) scale(0.9);
+        opacity: 0.7;
+    }
+}
+
+/* ===== 主容器 ===== */
+.container {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* ===== 玻璃卡片 ===== */
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    padding: 50px 40px;
+    max-width: 650px;
+    width: 100%;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        0 0 100px rgba(0, 150, 200, 0.1),
+        inset 0 0 60px rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    animation: cardAppear 0.8s ease-out;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+    animation: sparkle 3s ease-in-out infinite;
+}
+
+.sparkle-1 {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.sparkle-2 {
+    top: 20%;
+    right: 15%;
+    animation-delay: 1s;
+}
+
+.sparkle-3 {
+    bottom: 30%;
+    left: 20%;
+    animation-delay: 2s;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.card-glow {
+    position: absolute;
+    bottom: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, 
+        rgba(233, 79, 140, 0.15) 0%, 
+        rgba(64, 221, 255, 0.1) 50%,
+        transparent 100%);
+    pointer-events: none;
+    animation: cardGlow 8s ease-in-out infinite;
+}
+
+@keyframes cardGlow {
+    0%, 100% {
+        transform: rotate(0deg);
+        opacity: 0.5;
+    }
+    50% {
+        transform: rotate(180deg);
+        opacity: 0.8;
+    }
+}
+
+/* ===== 标题 ===== */
+.title-3d {
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, 
+        #E94F8C, 
+        #40DDFF, 
+        #E94F8C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    text-align: center;
+    filter: drop-shadow(0 5px 15px rgba(233, 79, 140, 0.4));
+    animation: titleFloat 4s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ===== 副标题 ===== */
+.subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 20px;
+    line-height: 2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== 歌词文字 ===== */
+.lyrics {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-style: italic;
+    margin-bottom: 35px;
+    line-height: 1.8;
+    padding: 20px;
+    background: linear-gradient(135deg, 
+        rgba(233, 79, 140, 0.1), 
+        rgba(64, 221, 255, 0.1));
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, 
+        #E94F8C, 
+        #40DDFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== 浮动动画 ===== */
+.floating-text {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ===== 屏幕切换 ===== */
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== 按钮样式 ===== */
+.button-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
+
+.btn {
+    padding: 18px 50px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: 600;
+    letter-spacing: 2px;
+    min-width: 180px;
+}
+
+.btn-glass {
+    background: linear-gradient(135deg, 
+        rgba(233, 79, 140, 0.3), 
+        rgba(64, 221, 255, 0.2));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 8px 32px rgba(233, 79, 140, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary.btn-glass {
+    background: linear-gradient(135deg, 
+        rgba(233, 79, 140, 0.4), 
+        rgba(64, 221, 255, 0.3));
+    border-color: rgba(233, 79, 140, 0.5);
+}
+
+.btn-glass:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 
+        0 12px 40px rgba(233, 79, 140, 0.5),
+        inset 0 0 30px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-back.btn-glass {
+    background: linear-gradient(135deg, 
+        rgba(150, 150, 150, 0.3), 
+        rgba(120, 120, 120, 0.2));
+    border-color: rgba(200, 200, 200, 0.3);
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 70%
+    );
+    transform: translateX(-100%) rotate(45deg);
+    transition: transform 0.6s;
+}
+
+.btn:hover .btn-shine {
+    transform: translateX(100%) rotate(45deg);
+}
+
+/* 涟漪效果 */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:active .ripple-effect {
+    width: 400px;
+    height: 400px;
+}
+
+/* ===== 输入框 ===== */
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 18px 25px;
+    font-size: 1.1rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+
+input[type="text"]:focus, textarea:focus {
+    border-color: rgba(233, 79, 140, 0.6);
+    box-shadow: 
+        0 0 30px rgba(233, 79, 140, 0.2),
+        inset 0 0 20px rgba(233, 79, 140, 0.05);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+input[type="text"]::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.char-count {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.error-message {
+    color: #ff6b6b;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    min-height: 20px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== 活动详情 ===== */
+.event-details {
+    background: linear-gradient(135deg, 
+        rgba(233, 79, 140, 0.1), 
+        rgba(64, 221, 255, 0.08));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 25px 0;
+    text-align: left;
+    box-shadow: 
+        0 10px 40px rgba(233, 79, 140, 0.1),
+        inset 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+    border-color: rgba(233, 79, 140, 0.3);
+}
+
+.detail-item:last-child {
+    margin-bottom: 0;
+}
+
+.icon {
+    font-size: 1.8rem;
+    margin-right: 15px;
+    filter: drop-shadow(0 2px 8px rgba(233, 79, 140, 0.5));
+}
+
+.label {
+    font-weight: 600;
+    background: linear-gradient(135deg, #E94F8C, #40DDFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-right: 10px;
+    min-width: 70px;
+}
+
+.detail-item span:not(.icon):not(.label) {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== 反馈区域 ===== */
+.feedback-section {
+    margin: 25px 0;
+    position: relative;
+}
+
+.feedback-section p {
+    text-align: left;
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 120px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+
+/* ===== 音乐播放器 ===== */
+.music-player {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.music-toggle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, 
+        rgba(233, 79, 140, 0.4), 
+        rgba(64, 221, 255, 0.3));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    box-shadow: 
+        0 8px 32px rgba(233, 79, 140, 0.4),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 1.8rem;
+    backdrop-filter: blur(10px);
+}
+
+.music-toggle:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 
+        0 12px 40px rgba(233, 79, 140, 0.6),
+        inset 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.music-controls {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    display: none;
+    min-width: 220px;
+    color: #fff;
+}
+
+.music-controls.active {
+    display: block;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.volume-control span {
+    font-size: 1.3rem;
+    filter: drop-shadow(0 2px 6px rgba(233, 79, 140, 0.5));
+}
+
+input[type="range"] {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E94F8C, #40DDFF);
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(233, 79, 140, 0.8);
+}
+
+.upload-btn {
+    width: 100%;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, 
+        rgba(233, 79, 140, 0.4), 
+        rgba(64, 221, 255, 0.3));
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(233, 79, 140, 0.3);
+}
+
+.upload-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(233, 79, 140, 0.5);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.music-status {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== 模态框 ===== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 45px;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    backdrop-filter: blur(25px);
+    color: #fff;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h3 {
+    background: linear-gradient(135deg, #E94F8C, #40DDFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+}
+
+.modal-content p {
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 30px;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+#modal-nickname {
+    background: linear-gradient(135deg, #E94F8C, #40DDFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* ===== 数据管理面板 ===== */
+.data-panel {
+    position: fixed;
+    bottom: 120px;
+    right: 30px;
+    z-index: 999;
+}
+
+.data-toggle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, 
+        rgba(233, 79, 140, 0.4), 
+        rgba(64, 221, 255, 0.3));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    box-shadow: 
+        0 8px 25px rgba(233, 79, 140, 0.4),
+        inset 0 0 15px rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.data-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 
+        0 12px 35px rgba(233, 79, 140, 0.6),
+        inset 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.data-content {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 350px;
+    max-height: 500px;
+    display: none;
+    flex-direction: column;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.data-content.active {
+    display: flex;
+    animation: slideUp 0.3s ease-out;
+}
+
+.security-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.security-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.security-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.security-text strong {
+    color: #4CAF50;
+    font-size: 0.95rem;
+}
+
+.security-text span {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.data-content h3 {
+    background: linear-gradient(135deg, #E94F8C, #40DDFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.data-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px 8px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #E94F8C, #40DDFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-value.accepted {
+    background: linear-gradient(135deg, #4CAF50, #8BC34A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-value.declined {
+    background: linear-gradient(135deg, #f44336, #ff9800);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.data-list {
+    flex: 1;
+    min-height: 150px;
+    max-height: 250px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 15px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.data-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.data-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.data-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.data-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.empty-text {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 30px 0;
+    font-style: italic;
+}
+
+.participant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+}
+
+.participant-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(3px);
+}
+
+.participant-name {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.participant-status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.participant-status.accepted {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.participant-status.declined {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.participant-time {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 4px;
+}
+
+.data-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.action-btn.danger {
+    border-color: rgba(244, 67, 54, 0.3);
+}
+
+.action-btn.danger:hover {
+    background: rgba(244, 67, 54, 0.15);
+    border-color: rgba(244, 67, 54, 0.5);
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+    .glass-card {
+        padding: 35px 25px;
+        margin: 10px;
+        border-radius: 20px;
+    }
+
+    .title-3d {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .lyrics {
+        font-size: 0.95rem;
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 15px 35px;
+        font-size: 1rem;
+        min-width: 150px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .event-details {
+        padding: 20px;
+    }
+
+    .detail-item {
+        padding: 12px;
+    }
+
+    .icon {
+        font-size: 1.4rem;
+    }
+
+    .bubble {
+        display: none;
+    }
+
+    .music-toggle {
+        width: 55px;
+        height: 55px;
+        font-size: 1.4rem;
+    }
+
+    .music-controls {
+        right: 5px;
+        padding: 20px;
+        min-width: 180px;
+    }
+
+    .data-panel {
+        bottom: 100px;
+        right: 20px;
+    }
+
+    .data-content {
+        width: 280px;
+        right: 5px;
+    }
+
+    .data-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title-3d {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    .glass-card {
+        padding: 30px 20px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+        min-width: 130px;
+    }
+
+    .event-details {
+        padding: 15px;
+    }
+
+    .detail-item {
+        flex-wrap: wrap;
+    }
+
+    .label {
+        min-width: 55px;
+    }
+}
