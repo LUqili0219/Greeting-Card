@@ -1,231 +1,98 @@
-# 🎴 Greeting Card - 多主题生日邀请卡片
+# 🌊 风之海·生日邀请函
 
-一个支持多主题的生日活动邀请网页项目，包含不同风格的邀请卡片设计。
+一个精美的仙侠风格生日邀请函网页，采用纯 HTML/CSS/JavaScript 实现，无需任何外部依赖。
 
-## 📚 版本介绍
+## ✨ 特性
 
-### 🌊 风之海版本
-> **当前分支**: [`wind-sea`](https://github.com/LUqili0219/Greeting-Card/tree/wind-sea)
-
-一个精美的海洋主题生日活动邀请网页，采用玻璃拟态设计风格，配合粒子动画、波浪效果和音乐播放器，为参与者带来沉浸式的视觉体验。
-
-**切换到此版本**:
-```bash
-git checkout wind-sea
-```
-
-### 🏮 古风版本
-> **当前分支**: [`main`](https://github.com/LUqili0219/Greeting-Card/tree/main)
-
-中国古典风格的生日邀请卡片，采用传统元素和配色。
-
-**切换到此版本**:
-```bash
-git checkout main
-```
-
-- **精美视觉设计**
-  - 玻璃拟态（Glassmorphism）卡片设计
-  - 粒子系统背景动画
-  - 动态波浪效果
-  - 极光背景与流光特效
-  - 视差滚动效果
-
-- **交互功能**
-  - 邀请确认/婉拒流程
-  - 昵称输入与验证
-  - 留言反馈功能
-  - 音乐播放器（支持自定义上传）
-  - 涟漪按钮效果
-
-- **数据存储**
-  - IndexedDB 本地存储
-  - Supabase 云端数据库支持
-  - 数据导出为 JSON
+- 🏮 **仙侠风格设计** - 采用古典中国风配色和装饰元素
+- 🎨 **可自定义背景** - 支持更换背景图片
+- 📱 **响应式设计** - 完美适配桌面和移动设备
+- 🎭 **多页面切换** - 邀请、接受、拒绝三种页面状态
+- 💫 **流畅动画** - 优雅的过渡效果和装饰动画
+- 🌙 **夜间模式友好** - 舒适的视觉体验
 
 ## 🚀 快速开始
 
-### 克隆仓库
+### 使用方法
 
-```bash
-git clone https://github.com/LUqili0219/Greeting-Card.git
-cd Greeting-Card
-```
+1. 直接在浏览器中打开 `index.html` 文件
+2. 点击右上角的"更换背景"按钮可以自定义背景图片
+3. 点击"是"或"否"按钮查看不同的页面效果
 
-### 切换版本
+### 在线预览
 
-```bash
-# 风之海版本
-git checkout wind-sea
-
-# 古风版本
-git checkout main
-```
-
-### 本地运行
-
-```bash
-# 使用 Python 启动本地服务器
-python -m http.server 8000
-
-# 或使用 Node.js
-npx http-server -p 8000
-```
-
-然后在浏览器中访问 `http://localhost:8000`
-
----
-
-## 📌 风之海版本特性
-
-## ⚙️ 配置
-
-### Supabase 配置
-
-1. 访问 [Supabase](https://supabase.com/) 注册账号
-2. 创建新项目
-3. 在 SQL Editor 中运行以下命令创建数据表：
-
-```sql
--- 创建 participants 表
-CREATE TABLE IF NOT EXISTS participants (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    nickname TEXT NOT NULL,
-    status TEXT NOT NULL CHECK (status IN ('accepted', 'declined')),
-    timestamp TEXT NOT NULL,
-    reason TEXT,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
-);
-
--- 创建索引
-CREATE INDEX IF NOT EXISTS idx_participants_nickname ON participants(nickname);
-CREATE INDEX IF NOT EXISTS idx_participants_timestamp ON participants(timestamp);
-CREATE INDEX IF NOT EXISTS idx_participants_status ON participants(status);
-
--- 启用行级安全策略
-ALTER TABLE participants ENABLE ROW LEVEL SECURITY;
-
--- 允许插入数据
-DROP POLICY IF EXISTS "Allow insert for all users" ON participants;
-CREATE POLICY "Allow insert for all users" 
-ON participants FOR INSERT 
-TO anon, authenticated
-WITH CHECK (true);
-
--- 允许读取数据
-DROP POLICY IF EXISTS "Allow select for all users" ON participants;
-CREATE POLICY "Allow select for all users" 
-ON participants FOR SELECT 
-TO anon, authenticated
-USING (true);
-```
-
-4. 获取项目 URL 和 anon Key，在 `js/main.js` 中配置：
-
-```javascript
-const SUPABASE_CONFIG = {
-    url: 'https://your-project-id.supabase.co',
-    anonKey: 'your-anon-key-here'
-};
-```
-
-### 活动信息修改
-
-在 `index.html` 中修改以下内容：
-
-- 活动时间：第 86 行
-- 活动地点：第 84 行
-- 提示信息：第 88 行
+将 `index.html` 部署到任何静态网站托管服务即可在线访问：
+- GitHub Pages
+- Vercel
+- Netlify
+- 或任何其他静态托管服务
 
 ## 📁 项目结构
 
 ```
 wind-sea-invitation/
-├── index.html          # 主页面
+├── index.html          # 主文件（包含所有HTML、CSS和JavaScript）
 ├── css/
 │   └── style.css      # 样式文件
 ├── js/
 │   └── main.js        # JavaScript 逻辑
-├── README.md          # 项目说明
-├── SUPABASE_SETUP.md  # Supabase 配置指南
-├── PRIVACY.md         # 隐私政策
-└── EMAILJS_SETUP.md   # EmailJS 配置指南（可选）
+└── README.md          # 项目说明文档
 ```
 
-## 🎨 技术栈
+## 🎨 自定义
+
+### 修改内容
+
+直接在 `index.html` 中搜索并修改以下内容：
+
+- **标题**：搜索"仙侠生辰邀约"
+- **诗词**：修改 `.poem` 元素中的诗句
+- **问题**：修改 `.question` 元素
+- **详情信息**：修改 `.details-section` 中的内容
+
+### 修改样式
+
+- **颜色主题**：修改 CSS 中的颜色值（如 `#8b4513`、`#d4af37`）
+- **字体**：修改 `font-family` 属性
+- **尺寸**：调整 `font-size`、`padding`、`margin` 等属性
+
+## 🛠️ 技术栈
 
 - **HTML5** - 页面结构
-- **CSS3** - 样式与动画
-  - Glassmorphism 设计
-  - CSS 动画与过渡
-  - 渐变与光效
-- **JavaScript (ES6+)** - 交互逻辑
-  - Canvas 粒子系统
-  - Canvas 波浪效果
-  - IndexedDB 数据存储
-  - Supabase SDK 集成
+- **CSS3** - 样式和动画
+- **JavaScript** - 交互逻辑
+- **无框架** - 纯原生实现
 
-## 🌐 浏览器支持
+## 📱 响应式支持
 
-- Chrome (推荐)
-- Firefox
-- Safari
-- Edge
+项目支持以下设备尺寸：
+- 🖥️ 桌面端 (> 600px)
+- 📱 移动端 (≤ 600px)
 
-## 📝 使用说明
+## 🎯 功能说明
 
-### 参与者操作流程
+### 页面切换
 
-1. 访问邀请页面
-2. 点击「接受邀请」或「婉拒邀请」
-3. 如接受邀请，输入昵称（2-15字符，支持中文）
-4. 确认后查看活动详情
-5. 如婉拒邀请，可选择性留下反馈
+- **邀请页**：显示邀请函主体，包含诗句和选择按钮
+- **接受页**：显示欢迎信息和详细活动信息
+- **拒绝页**：显示遗憾告别信息
 
-### 管理员操作
+### 背景更换
 
-在浏览器控制台可使用以下命令：
-
-```javascript
-// 查看所有参与者数据
-showAllParticipants()
-
-// 清空所有数据
-clearAllData()
-
-// 导出数据为 JSON
-exportData()
-```
-
-## 🔒 隐私说明
-
-- 参与者数据默认存储在浏览器本地 IndexedDB
-- 启用 Supabase 后，数据将同步上传至云端
-- 所有操作均在客户端完成，无用户追踪
+点击右上角的"🏔️ 更换背景"按钮，选择本地图片即可替换背景。
 
 ## 📄 许可证
 
-MIT License
+本项目采用 MIT 许可证 - 查看 LICENSE 文件了解详情
 
-## 🤝 贡献
+## 👤 作者
 
-欢迎提交 Issue 和 Pull Request！
+[LUqili0219](https://github.com/LUqili0219)
 
-**版本切换**:
-- 如果您想创建新的主题版本，请基于现有分支创建新分支
-- 建议的命名格式：`<theme-name>-<version>`
+## 🙏 致谢
 
-**代码规范**:
-- 保持代码风格一致
-- 添加适当的注释
-- 更新 README 文档
+感谢所有为这个项目提供支持和建议的朋友！
 
 ---
 
-## 📄 许可证
-
-MIT License
-
----
-
-**风之海** - 愿你的生日如风般自由，如海般辽阔 🌊
+**💖 如果喜欢这个项目，请给个 Star！**
